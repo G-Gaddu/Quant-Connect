@@ -179,7 +179,7 @@ class CarryTrendAlpha(AlphaModel):
             smooth_carry_forecast = carry_forecast.ewm(span=span, min_periods=span).mean().dropna()
             if smooth_carry_forecast.empty:
                 continue
-            smooth_carry_forecast = smoothed_carry_forecast.iloc[-1]
+            smooth_carry_forecast = smooth_carry_forecast.iloc[-1]
             # Then scale the signal
             scaled_carry_forecast = smooth_carry_forecast * self.carry_forecast_scalar
             # Then cap it
@@ -242,4 +242,6 @@ class CarryTrendAlpha(AlphaModel):
             # Update the raw carry history
             security.raw_history.loc[end_date] = consolidated_bar.close
             security.raw_history = security.raw_history.iloc[-1:]
+
+
 
